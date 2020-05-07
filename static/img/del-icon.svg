@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="b579c4f0-774b-4bd6-bbf3-fbc1b87111a5"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1196px" height="591.27px"
+	 viewBox="367 0 1196 591.27" enable-background="new 367 0 1196 591.27" xml:space="preserve">
+<circle fill-rule="evenodd" clip-rule="evenodd" fill="none" stroke="#990033" stroke-width="23" stroke-miterlimit="10" cx="667.523" cy="287.584" r="267.645"/>
+<title>throw_away</title>
+<g>
+	<path fill="#990033" d="M811.22,132.834h-82.901l-6.494-12.919c-2.807-5.633-8.56-9.193-14.854-9.188h-78.964
+		c-6.282-0.024-12.024,3.545-14.784,9.188l-6.494,12.919h-82.901c-6.104,0-11.054,4.949-11.054,11.054v22.107
+		c0,6.105,4.949,11.054,11.054,11.054H811.22c6.105,0,11.054-4.949,11.054-11.054v-22.107
+		C822.273,137.783,817.325,132.834,811.22,132.834z M549.526,433.353c1.095,17.474,15.584,31.086,33.092,31.089h169.811
+		c17.508-0.003,31.997-13.615,33.092-31.089l14.646-234.198H534.881L549.526,433.353z"/>
+</g>
+<path fill-rule="evenodd" clip-rule="evenodd" fill="#990033" d="M1540,366.135c0,6.627-5.373,12-12,12H938c-6.627,0-12-5.373-12-12
+	v-155c0-6.627,5.373-12,12-12h590c6.627,0,12,5.373,12,12V366.135z"/>
+<text transform="matrix(1 0 0 1 964.0049 319.0903)" fill="#FFFFFF" font-family="'DINAlternate-Bold'" font-size="92.2185">APAGAR ITEM</text>
+</svg>

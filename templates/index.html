@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% include 'logger.html' %}
+<ul class="nav nav-pills mb-3" id="pills-tab-menu" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="pills-HAMBURGERS-tab" data-toggle="pill" href="#pills-HAMBURGERS" role="tab"
+           aria-controls="pills-HAMBURGERS" aria-selected="true">HAMBURGERS</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-SALGADOS-tab" data-toggle="pill" href="#pills-SALGADOS" role="tab"
+           aria-controls="pills-SALGADOS" aria-selected="false">PORÇOES/SALGADOS</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-PIZZAS-tab" data-toggle="pill" href="#pills-PIZZAS" role="tab"
+           aria-controls="pills-PIZZAS" aria-selected="false">PIZZAS/LASANHAS</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-CARNES-tab" data-toggle="pill" href="#pills-CARNES" role="tab"
+           aria-controls="pills-CARNES" aria-selected="false">CARNES</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-BEBIDAS-tab" data-toggle="pill" href="#pills-BEBIDAS" role="tab"
+           aria-controls="pills-BEBIDAS" aria-selected="false">BEBIDAS</a>
+    </li>
+</ul>
+<div class="tab-content" id="pills-menu">
+    <div class="tab-pane fade show active" id="pills-HAMBURGERS" role="tabpanel" aria-labelledby="pills-HAMBURGERS-tab">
+        {% include 'menu_hambugers.html' %}
+    </div>
+    <div class="tab-pane fade" id="pills-SALGADOS" role="tabpanel" aria-labelledby="pills-SALGADOS-tab">
+        {% include 'menu_salgados.html' %}
+    </div>
+    <div class="tab-pane fade" id="pills-PIZZAS" role="tabpanel" aria-labelledby="pills-PIZZAS-tab">
+{% include 'menu_pizzas.html' %}
+    </div>
+    <div class="tab-pane fade" id="pills-CARNES" role="tabpanel" aria-labelledby="pills-CARNES-tab">
+{% include 'menu_carnes.html' %}
+    </div>
+    <div class="tab-pane fade" id="pills-BEBIDAS" role="tabpanel" aria-labelledby="pills-BEBIDAS-tab">
+{% include 'menu_bebidas.html' %}
+    </div>
+</div>
+
+
+{% endblock %}

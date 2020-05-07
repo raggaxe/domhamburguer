@@ -1,0 +1,325 @@
+{% extends "dash_admin.html" %}
+
+{% block content %}
+
+<div class="ww container-fluid">
+    <div style="display:none" id="output_div2" class="container-fluid text-center alerta2">
+                <span id="output2" class="absolute_md">
+                </span>
+    </div>
+    <div id="produto_modal" class="container-fluid">
+
+        <form  method="POST" id="uploadfile2" action="{{ url_for('edit_produto') }}" enctype="multipart/form-data">
+
+            {% for i in produto %}
+            <button type="button" class="close">
+                        <a href="/edit/categorias/{{i.7}}" aria-hidden="true">&times;</a>
+                    </button>
+
+
+            <div class="" id="itens_hide2">
+                <div class="form-group">
+                    <label class="labet_main">PRODUTO</label>
+                    <input type="text" name="titulo" id="a_titulo" class="input_produto" autocomplete="off"
+                           value="{{i.1}}" placeholder="{{i.1}}">
+                </div>
+                <div class="form-group">
+                    <label class="labet_main">VALOR</label>
+                    <input type="text" name="valor" id="a_valor" class="input_produto"
+                           value="{{i.2}}" placeholder="{{i.2}}">
+                </div>
+                <div class="form-group">
+                    <label class="labet_main">INGREDIENTES</label>
+                    <input style="display:none" type="text" value="{{i.3}}" id="ingredientes_value"
+                           placeholder="{{i.3}}">
+                    <div id="subgroup2" style="margin-left:20px;" class="form-subgroup">
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="checkbox" id="b_frango" name="ingredientes_1" value="frango"
+                                       class="edit_ingredientes">
+                                <label for="b_frango">FILÉ FRANGO</label>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" id="b_picanha" name="ingredientes_2" value="picanha"
+                                       class="edit_ingredientes">
+                                <label for="b_picanha"> PICANHA</label><br>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" id="b_carne" name="ingredientes_3" value="carne"
+                                       class="edit_ingredientes">
+                                <label for="b_carne">BURGUER CARNE</label><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="checkbox" id="b_fiambre" name="ingredientes_4" value="fiambre"
+                                       class="edit_ingredientes">
+                                <label for="b_fiambre">FIAMBRE</label>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" id="b_mussarela" name="ingredientes_5" value="mussarela"
+                                       class="edit_ingredientes">
+                                <label for="b_mussarela"> MUSSARELA</label><br>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" id="b_ovo" name="ingredientes_6" value="ovo"
+                                       class="edit_ingredientes">
+                                <label for="b_ovo"> OVO</label><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="checkbox" id="b_tomate" name="ingredientes_7" value="tomate"
+                                       class="edit_ingredientes">
+                                <label for="b_tomate">TOMATE</label>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" id="b_alface" name="ingredientes_8" value="alface"
+                                       class="edit_ingredientes">
+                                <label for="b_alface"> ALFACE</label><br>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" id="b_milho" name="ingredientes_9" value="milho"
+                                       class="edit_ingredientes">
+                                <label for="b_milho"> MILHO</label><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="checkbox" id="b_batata" name="ingredientes_10" value="batata"
+                                       class="edit_ingredientes">
+                                <label for="b_batata">BATATA PALHA</label>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" id="b_salsicha" name="ingredientes_11" value="salsicha"
+                                       class="edit_ingredientes">
+                                <label for="b_salsicha"> SALSICHA</label><br>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" id="b_bacon" name="ingredientes_12" value="bacon"
+                                       class="edit_ingredientes">
+                                <label for="b_bacon"> BACON</label><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="labet_main">MINUTOS</label>
+                    <input type="text" name="time" id="a_time" class="input_produto" autocomplete="off"
+                           value="{{i.4}}" placeholder="{{i.4}}">
+                </div>
+                <div class="form-group">
+                    <label class="labet_main">SERVING</label>
+                    <input style="display:none;" type="text" value="{{i.5}}" id='serving_values' placeholder="{{i.5}}">
+                    <div class="form-subgroup_server text-center">
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="checkbox" id="c_1-2" name="serving_edit" value="1-2" class="check_box">
+                                <label class="label_size" for="c_1-2">1 - 2</label>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" id="c_2-4" name="serving_edit" value="2-4" class="check_box">
+                                <label class="label_size" for="c_2-4">2 - 4</label><br>
+                            </div>
+                            <div class="col-4">
+                                <input type="checkbox" id="c_4+" name="serving_edit" value="4+" class="check_box">
+                                <label class="label_size" for="c_4+">4+</label><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <label id="upload" class="custom-file-upload aviso text-center">
+                        <input type="file" accept="image/*" id="gallery-photo-add" onchange="loadFile(event)">
+                        ALTERAR A FOTO
+                    </label>
+
+                    <label style="display:none" id="upload_sucess" class="valid text-center">
+                        FOTO ADICIONADA COM SUCESSO
+                    </label>
+
+
+                </div>
+                <input type="hidden" name="categoria" value="{{i.7}}">
+                <input type="hidden" name="id" value="{{i.0}}">
+
+
+            </div>
+
+            <!--            <div style="display:none" class="preview text-center" id="preview2">-->
+            <!--                <div class="card cardapio">-->
+            <!--                    <div class="card-header">-->
+            <!--                        <div class="tag_price">-->
+            <!--                            <span id="valor_insert">  </span>-->
+            <!--                        </div>-->
+            <!--                        <img src="/static/img/box_hamburger.jpg" id="img_insert">-->
+            <!--                    </div>-->
+            <!--                    <div class="card-body">-->
+            <!--                        <div class="title_card">-->
+            <!--                            <h4 id="titulo_insert"></h4>-->
+            <!--                        </div>-->
+            <!--                        <hr>-->
+            <!--                        <div class="details_card">-->
+            <!--                            <div class="row">-->
+            <!--                                <div class="col-4 recipe_details">-->
+            <!--                                    <div class="details_item">-->
+            <!--                                        <img width="20" src="/static/img/clock.svg">-->
+            <!--                                        <span class="value" id="time_insert"></span>-->
+            <!--                                        <div>-->
+            <!--                                            <span class="title_details">Minutos</span>-->
+            <!--                                        </div>-->
+            <!--                                    </div>-->
+            <!--                                </div>-->
+            <!--                                <div class="col-4 recipe_details">-->
+            <!--                                    <div class="details_item">-->
+            <!--                                        <img width="25" src="/static/img/menu_book-24px.svg">-->
+            <!--                                        <span class="value" id="recipe_insert"></span>-->
+            <!--                                        <div>-->
+            <!--                                            <span class="title_details">Ingredientes</span>-->
+            <!--                                        </div>-->
+            <!--                                    </div>-->
+            <!--                                </div>-->
+            <!--                                <div class="col-4 recipe_details">-->
+            <!--                                    <div class="details_item">-->
+            <!--                                        <img width="25" src="/static/img/restaurant_menu-24px.svg">-->
+            <!--                                        <span class="value" id="serving_insert"></span>-->
+            <!--                                        <div>-->
+            <!--                                            <span class="title_details">Serving</span>-->
+            <!--                                        </div>-->
+            <!--                                    </div>-->
+            <!--                                </div>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                        <div class="container-fluid">-->
+            <!--                            <ul class="unlist" id="list_insert">-->
+            <!--                                <li class="block_item">PÃO</li>-->
+
+            <!--                            </ul>-->
+            <!--                        </div>-->
+            <!--                        &lt;!&ndash;                    <div class="content__footer ">&ndash;&gt;-->
+            <!--                        &lt;!&ndash;                        <a data-name="X-PICANHA-ESPECIAL" data-price="7.00" class="add-to-cart" href="#">COMPRAR</a>&ndash;&gt;-->
+            <!--                        &lt;!&ndash;                    </div>&ndash;&gt;-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+
+            <hr id="hr">
+            <div class="container-fluid text-center">
+                <a href="#" class="special_btn" id="special2">EDITAR E SALVAR</a>
+            </div>
+            <div class="modal-footer" id="modal_footer_edit">
+                <!--          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                <button style="display:none;" type="submit" class="special_btn_2" id="submit_box2">
+                    CONCLUIR E SALVAR
+                </button>
+            </div>
+            <a style="display:none" href="/edit/categorias/{{i.7}}" class="special_btn_2" id="click_final">Sair</a>
+
+        </form>
+        <div class="container-fluid text-right">
+            <a href="/edit/apagar_produto/{{i.0}}" class="" id="deletar">
+                APAGAR PRODUTO
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+
+<!--<div id="edit_footer" class="cc container-fluid">-->
+<!--    <div class="text-center">-->
+<!--        <button type="button" class="add_item" data-toggle="modal" data-target="#add_produto">ADD NOVO PRODUTO +-->
+<!--        </button>-->
+<!--    </div>-->
+<!--</div>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+$(document).ready(function (e) {
+        var values_serving = document.getElementById('serving_values').value;
+
+        var check_serving = document.querySelectorAll("input[name='serving_edit']");
+        check_serving.forEach(function(p) {
+          if (p.value == values_serving){
+          p.checked = true;
+            }
+
+        });
+        var ingredientes_value = document.getElementById('ingredientes_value').value;
+         ingredientes_value.split('; ').forEach(function (item) {
+         var check_ingredientes = document.querySelectorAll("input[class='edit_ingredientes']");
+         check_ingredientes.forEach(function(c) {
+          if (c.value == item){
+          c.checked = true;
+            }
+        });
+});
+
+			$('#special2').on('click', function () {
+
+			event.preventDefault();
+
+        // Get form
+        var form = $('#uploadfile2')[0];
+       // Create an FormData object
+        var data = new FormData(form);
+        data.append('files', $('input[type=file]')[0].files[0]);
+
+       // disabled the submit button
+        $("#submit_box2").prop("disabled", true);
+
+
+
+                $.ajax({
+					url: "{{ url_for('edit_produto') }}", // point to server-side URL
+
+					dataType: 'json', // what to expect back from server
+					cache: false,
+					contentType: false,
+					processData: false,
+					data: data,
+					type: 'post',
+					success: function (data) {
+
+                $("#output2").text(data.msg);
+                console.log("SUCCESS : ", data);
+                    if(data.category == 'success'){
+                 $("#submit_box").prop("disabled", false);
+                document.getElementById('output_div2').style.display = 'block';
+                document.getElementById('output2').classList.add("sucess2");
+                document.getElementById('output2').classList.remove("danger");
+                document.getElementById('itens_hide2').style.display = 'none';
+                 document.getElementById('special2').style.display = 'none';
+                 document.getElementById('hr').style.display = 'none';
+                 document.getElementById('modal_footer_edit').style.display = 'none';
+                 document.getElementById('produto_modal').style.display = 'none';
+
+
+                  setTimeout(function() {
+                    document.getElementById('click_final').click();
+                    }, 2000);
+
+                    }
+                    else{
+                document.getElementById('output2').classList.add("danger");
+                document.getElementById('output_div2').style.display = 'block';
+                console.log('ok');
+                    }
+                },
+              error: function (e) {
+                $("#output2").text(e.responseText);
+                console.log("ERROR : ", e);
+                 document.getElementById('output2').classList.add("danger");
+                document.getElementById('output_div2').style.display = 'block';
+            }
+				});
+			});
+		});
+
+
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,305 @@
+{% extends "dash_admin.html" %}
+
+{% block content %}
+<div class="quick-alo-phone quick-alo-green quick-alo-show" id="quick-alo-phoneIcon" style="right: 70px; bottom: 50px">
+    <a href="#" title="Chat Ngay" onclick="myClick()">
+        <div class="quick-alo-ph-circle">
+        </div>
+        <div class="quick-alo-ph-circle-fill">
+        </div>
+        <div class="quick-alo-ph-img-circle">
+            <p>+</p>
+        </div>
+    </a>
+    <button style="display:none;" type="button" class="add_item" id="add_item_category" data-toggle="modal"
+            data-target="#add_produto">ADD NOVO PRODUTO +
+    </button>
+</div>
+
+
+<div class="sup  container-fluid mb">
+    <div class="sup  container-fluid">
+        <table id="table_edit" class="table table-striped table-hover table-borderless">
+            <thead class="theader_categoria">
+            <tr class='trheader_categoria text-center' style="font-size:14px;">
+                <th scope="col">FOTO</th>
+                <th scope="col">PRODUTO</th>
+                <th scope="col">INGREDIENTES</th>
+                <th scope="col">TEMPO</th>
+                <th scope="col">*</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for i in produtos %}
+            <tr class="tr_table text-center" onclick="editClick({{i.0}})">
+                <th class="foto_table" scope="row">
+                    <div class="foto_box">
+                        <img src="{{ url_for('uploaded_file', filename=i.6) }}" alt="Card image cap">
+                    </div>
+                </th>
+                <td class="item_name">
+                    <p>{{i.1}}</p>
+                    <div class="price text-center price_span">{{i.2}}</div>
+                </td>
+
+                <td>
+                    <div class="edit_recipe container-fluid">
+                        <h6 class="edit_recipe_tx">{{i.3}}</h6>
+                    </div>
+                </td>
+
+                <td class="serving">
+                    <div class="sv container-fluid">
+                        <div><img width="13" src="/static/img/clock.svg">{{i.4}}min</div>
+                    </div>
+                    <div class="container-fluid">
+                        <div>
+                            <img width="15" src="/static/img/restaurant_menu-24px.svg">
+                            {{i.5}}
+                        </div>
+                    </div>
+
+                </td>
+                <td>
+                    <div class="edit_box">
+                        <a href="/edit/produtos/{{i.0}}" id="editar_{{i.0}}" class="edit">EDITAR</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<div class="modal fade" id="add_produto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);" class="modal-content">
+            <form method="POST" id="uploadfile" action="{{ url_for('edit_category', categoria=categoria) }}"
+                  enctype="multipart/form-data">
+                <div class="modal-header text-center">
+                    <h4 class="" id="exampleModalLabel">CADASTRAR NOVO PRODUTO</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="itens_hide">
+                    <div class="form-group">
+                        <label class="labet_main">PRODUTO</label>
+                        <input type="text" name="titulo" id="a_titulo" class="input_produto" autocomplete="off"
+                               onchange="getComboA(this)">
+                    </div>
+                    <div class="form-group">
+                        <label class="labet_main">VALOR</label>
+                        <input type="text" name="valor" id="a_valor" class="input_produto" onchange="getComboA(this)">
+                    </div>
+                    <div class="form-group">
+                        <label class="labet_main">INGREDIENTES</label>
+                        <div style="margin-left:20px;" class="form-subgroup">
+                            <div class="row">
+                                <div class="col-4">
+                                    <input type="checkbox" id="b_frango" name="ingredientes_1" value="frango"
+                                           onchange="getComboA(this)">
+                                    <label for="b_frango">FILÉ FRANGO</label>
+                                </div>
+                                <div class="col-4">
+                                    <input type="checkbox" id="b_picanha" name="ingredientes_2" value="picanha"
+                                           onchange="getComboA(this)">
+                                    <label for="b_picanha"> PICANHA</label><br>
+                                </div>
+                                <div class="col-4">
+                                    <input type="checkbox" id="b_carne" name="ingredientes_3" value="carne"
+                                           onchange="getComboA(this)">
+                                    <label for="b_carne">BURGUER CARNE</label><br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <input type="checkbox" id="b_fiambre" name="ingredientes_4" value="fiambre"
+                                           onchange="getComboA(this)">
+                                    <label for="b_fiambre">FIAMBRE</label>
+                                </div>
+                                <div class="col-4">
+                                    <input type="checkbox" id="b_mussarela" name="ingredientes_5" value="mussarela"
+                                           onchange="getComboA(this)">
+                                    <label for="b_mussarela"> MUSSARELA</label><br>
+                                </div>
+                                <div class="col-4">
+                                    <input type="checkbox" id="b_ovo" name="ingredientes_6" value="ovo"
+                                           onchange="getComboA(this)">
+                                    <label for="b_ovo"> OVO</label><br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <input type="checkbox" id="b_tomate" name="ingredientes_7" value="tomate"
+                                           onchange="getComboA(this)">
+                                    <label for="b_tomate">TOMATE</label>
+                                </div>
+                                <div class="col-4">
+                                    <input type="checkbox" id="b_alface" name="ingredientes_8" value="alface"
+                                           onchange="getComboA(this)">
+                                    <label for="b_alface"> ALFACE</label><br>
+                                </div>
+                                <div class="col-4">
+                                    <input type="checkbox" id="b_milho" name="ingredientes_9" value="milho"
+                                           onchange="getComboA(this)">
+                                    <label for="b_milho"> MILHO</label><br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <input type="checkbox" id="b_batata" name="ingredientes_10" value="batata"
+                                           onchange="getComboA(this)">
+                                    <label for="b_batata">BATATA PALHA</label>
+                                </div>
+                                <div class="col-4">
+                                    <input type="checkbox" id="b_salsicha" name="ingredientes_11" value="salsicha"
+                                           onchange="getComboA(this)">
+                                    <label for="b_salsicha"> SALSICHA</label><br>
+                                </div>
+                                <div class="col-4">
+                                    <input type="checkbox" id="b_bacon" name="ingredientes_12" value="bacon"
+                                           onchange="getComboA(this)">
+                                    <label for="b_bacon"> BACON</label><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="labet_main">MINUTOS</label>
+                        <input type="text" name="time" id="a_time" class="input_produto" autocomplete="off"
+                               onchange="getComboA(this)">
+                    </div>
+                    <div class="form-group">
+                        <label class="labet_main">SERVING</label>
+                        <div class="form-subgroup_server text-center">
+                            <div class="row">
+                                <div class="col-4">
+                                    <input type="checkbox" id="c_1-2" name="serving" value="1-2" class="check_box"
+                                           onchange="getComboA(this)">
+                                    <label for="c_1-2">1 - 2</label>
+                                </div>
+                                <div class="col-4">
+                                    <input type="checkbox" id="c_2-4" name="serving" value="2-4" class="check_box"
+                                           onchange="getComboA(this)">
+                                    <label for="c_2-4">2 - 4</label><br>
+                                </div>
+                                <div class="col-4">
+                                    <input type="checkbox" id="c_4+" name="serving" value="4+" class="check_box"
+                                           onchange="getComboA(this)">
+                                    <label for="c_4+">4+</label><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <label id="upload" class="custom-file-upload aviso text-center">
+                            <input type="file" accept="image/*" id="gallery-photo-add" onchange="loadFile(event)">
+                            ADICIONE UMA FOTO
+                        </label>
+
+                        <label style="display:none" id="upload_sucess" class="valid text-center">
+                            FOTO ADICIONADA COM SUCESSO
+                        </label>
+
+
+                    </div>
+                    <input type="hidden" name="categoria" value="{{categoria}}">
+
+
+                </div>
+                <div style="display:none" id="output_div" class="container-fluid text-center alerta">
+                    <span id="output" class="absolute_md"></span>
+                </div>
+                <hr>
+                <div style="display:none" class="preview text-center" id="preview">
+                    <div class="card cardapio">
+                        <div class="card-header">
+                            <div class="tag_price">
+                                <span id="valor_insert">  </span>
+                            </div>
+                            <img src="/static/img/box_hamburger.jpg" id="img_insert">
+                        </div>
+                        <div class="card-body">
+                            <div class="title_card">
+                                <h4 id="titulo_insert"></h4>
+                            </div>
+                            <hr>
+                            <div class="details_card">
+                                <div class="row">
+                                    <div class="col-4 recipe_details">
+                                        <div class="details_item">
+                                            <img width="20" src="/static/img/clock.svg">
+                                            <span class="value" id="time_insert"></span>
+                                            <div>
+                                                <span class="title_details">Minutos</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 recipe_details">
+                                        <div class="details_item">
+                                            <img width="25" src="/static/img/menu_book-24px.svg">
+                                            <span class="value" id="recipe_insert"></span>
+                                            <div>
+                                                <span class="title_details">Ingredientes</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 recipe_details">
+                                        <div class="details_item">
+                                            <img width="25" src="/static/img/restaurant_menu-24px.svg">
+                                            <span class="value" id="serving_insert"></span>
+                                            <div>
+                                                <span class="title_details">Serving</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-fluid">
+                                <ul class="unlist" id="list_insert">
+                                    {% if categoria == '1' %}
+                                    <li class="block_item">PÃO</li>
+                                    {% endif %}
+
+                                </ul>
+                            </div>
+                            <!--                    <div class="content__footer ">-->
+                            <!--                        <a data-name="X-PICANHA-ESPECIAL" data-price="7.00" class="add-to-cart" href="#">COMPRAR</a>-->
+                            <!--                    </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid text-center">
+                    <a href="#" class="spc" id="special_btn"
+                       onclick="toggle_visibility2('preview','itens_hide',this.id);">PRÉ-VISUALIZAR</a>
+                    <a href="#" class="special_btn" id="special">ENVIAR</a>
+                </div>
+                <div class="modal-footer">
+                    <!--          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                    <button style="display:none;" type="submit" class="special_btn_2" id="submit_box">
+                        CONCLUIR E SALVAR
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+function myClick() {
+document.getElementById('add_item_category').click();
+}
+function editClick(edit_id) {
+document.getElementById('editar_'+edit_id).click();
+}
+
+</script>
+{% endblock %}
