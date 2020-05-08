@@ -361,6 +361,7 @@ def user_dash_type(id_data):
 @app.route('/sms', methods=['GET', 'POST'])
 def sms_reply(msg=None):
     comandos = ('/ADD','/REMOVE','/TELEFONES','/USUARIOS')
+
     c, conn = connection()
     if msg == None:
             mega = request.form.get('Body')
@@ -441,18 +442,53 @@ def sms_reply(msg=None):
                     return str('ok')
 
 
+
+
             if message not in comandos:
-                resp = MessagingResponse()
-                resp.message(f"""
-_*🍔DOM HAMBURGUER BOT🍔*_:
-Comandos para uso do Sistema:
-_________________________________
-📞```ADICIONAR SEU NUMERO``` --> */ADD*
-📔```WHATSAPP`S CADASTRADOS``` --> */TELEFONES*
-⛔```REMOVER SEU NUMERO```- */REMOVER*
-________________________________
-                """)
-                return str(resp)
+                if '/DADOS #' in message:
+                    search = message.strip('/DADOS #','')
+
+                    listaUsuarios = ''
+                    usuario = SelectSql('usuarios','id_usuarios',int(search))
+                    # print(phones)
+
+                    if usuario == False:
+                        listaUsuarios += f'*USUARIO NÃO ENCONTRADO*\n _para cadastrar digite */ADD*_'
+
+                    else:
+                        # numbersToSend = x.fetchall()
+                        # print(numbersToSend)
+                        for user in usuario:
+                            # telefone = numbersToSend[1]
+                            # print(telefone)
+                            listaUsuarios += f"""
+_______USUARIO__________
+NOME: {user[1]}
+EMAIL: {user[3]}
+TELEFONE: {user[9]}
+ENDEREÇO: {user[7]}
+______________________
+
+"""
+
+                    client.messages.create(
+                        from_='whatsapp:+14155238886',
+                        body=listaUsuarios,
+                        to=request.form.get('From')
+                    )
+                    return str('ok')
+                else:
+                    resp = MessagingResponse()
+                    resp.message(f"""
+    _*🍔DOM HAMBURGUER BOT🍔*_:
+    Comandos para uso do Sistema:
+    _________________________________
+    📞```ADICIONAR SEU NUMERO``` --> */ADD*
+    📔```WHATSAPP`S CADASTRADOS``` --> */TELEFONES*
+    ⛔```REMOVER SEU NUMERO```- */REMOVER*
+    ________________________________
+                    """)
+                    return str(resp)
 
     else:
         print('ENVIAR PARA OS NUMEROS CADASTRADOS')
