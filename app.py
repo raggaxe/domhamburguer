@@ -17,11 +17,7 @@ from SQL_modulos import InsertSql, UpdateQuerySql, SelectSql, SelectAll
 import stripe
 from twilio.twiml.messaging_response import MessagingResponse
 
-from boto.s3.connection import S3Connection
 
-
-
-# s3 = S3Connection(os.environ['S3_KEY'], os.environ['S3_SECRET'])
 
 mes = str(datetime.now().strftime("%b"))
 dia = str(datetime.now().strftime("%d"))
@@ -42,18 +38,18 @@ mail_settings = {
     'MAIL_PORT': 465,
     'MAIL_USE_TLS': False,
     'MAIL_USE_SSL': True,
-    'MAIL_USERNAME': S3Connection(os.environ['mail_username']),
-    'MAIL_PASSWORD': S3Connection(os.environ['mail_password'])
+    'MAIL_USERNAME': os.environ['mail_username'],
+    'MAIL_PASSWORD': os.environ['mail_password']
 
 }
 app.config.update(mail_settings)
 mail = Mail(app)
 
-account_sid = S3Connection(os.environ['TWILIO_ACCOUNT_SID'])
-auth_token = S3Connection(os.environ['TWILIO_AUTH_TOKEN'])
-secret_key= S3Connection(os.environ['secret_key'])
-publishable_key = S3Connection(os.environ['publishable_key'])
-api_key = S3Connection(os.environ['api_key'])
+account_sid = os.environ['TWILIO_ACCOUNT_SID']
+auth_token = os.environ['TWILIO_AUTH_TOKEN']
+secret_key= os.environ['secret_key']
+publishable_key = os.environ['publishable_key']
+api_key = os.environ['api_key']
 
 
 
