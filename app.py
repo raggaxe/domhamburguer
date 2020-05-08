@@ -360,135 +360,129 @@ def user_dash_type(id_data):
 
 @app.route('/sms', methods=['GET', 'POST'])
 def sms_reply(msg=None):
-    comandos = ('/ADD','/REMOVE','/TELEFONES','/USUARIOS')
-
+    comandos = ('/ADD', '/REMOVE', '/TELEFONES', '/USUARIOS')
     c, conn = connection()
     if msg == None:
-            mega = request.form.get('Body')
-            message= mega.upper()
-            if message in comandos:
-                if message == '/ADD':
-                    check_in = SelectSql('sms','whatsapp',request.form.get('From') )
-                    if check_in == False:
-                        InsertSql({'whatsapp': request.form.get('From')},'sms')
-                        bg = '✅✅✅ *NUMERO ADICIONADO* ✅✅✅'
-                    else:
-                        bg = '⚠️⚠️⚠️* NUMERO JÁ CADASTRADO *⚠️⚠️⚠️'
-                    client.messages.create(
-                        from_='whatsapp:+14155238886',
-                        body= bg,
-                        to=request.form.get('From')
-                    )
-                    return str('ok')
-                if message == '/REMOVE':
-                   c.execute(f"""
-                   DELETE FROM sms WHERE whatsapp='{request.form.get('From')}';""")
-                   client.messages.create(
-                       from_='whatsapp:+14155238886',
-                       body='🚨🚨🚨 *NUMERO REMOVIDO* 🚨🚨🚨',
-                       to=request.form.get('From')
-                   )
-                   conn.commit()
-                   c.close()
-                   return str('ok')
-
-
-                    # InsertSql({'whatsapp': request.form.get('From')}, 'sms')
-                if message == '/TELEFONES':
-                    listaTelefones = ''
-                    phones = SelectAll('sms')
-                    # print(phones)
-
-                    if phones==False:
-                       listaTelefones += f'*NENHUM TELEFONE ESTÁ CADASTRADO*\n _para cadastrar digite */ADD*_'
-
-                    else:
-
-                        # numbersToSend = x.fetchall()
-                        # print(numbersToSend)
-                        for numbersToSend in phones:
-                           telefone = numbersToSend[1]
-                           print(telefone)
-                           listaTelefones += f'*{telefone}*\n'
-
-
-                    client.messages.create(
-                                from_='whatsapp:+14155238886',
-                                body=listaTelefones,
-                                to=request.form.get('From')
-                            )
-                    return str('ok')
-                if message == '/USUARIOS':
-                    listaUsuarios = ''
-                    usuarios = SelectAll('usuarios')
-                    # print(phones)
-
-                    if usuarios == False:
-                        listaUsuarios += f'*NENHUM CLIENTE ESTÁ CADASTRADO*\n _para cadastrar digite */ADD*_'
-
-                    else:
-                        # numbersToSend = x.fetchall()
-                        # print(numbersToSend)
-                        for user in usuarios:
-                            # telefone = numbersToSend[1]
-                            # print(telefone)
-                            listaUsuarios += f'{user[0]} | {user[1]} \n'
-
-                    client.messages.create(
-                        from_='whatsapp:+14155238886',
-                        body=listaUsuarios,
-                        to=request.form.get('From')
-                    )
-                    return str('ok')
-
-
-
-
-            if message not in comandos:
-                if '/DADOS #' in message:
-                    search = message.strip('/DADOS #','')
-
-                    listaUsuarios = ''
-                    usuario = SelectSql('usuarios','id_usuarios',int(search))
-                    # print(phones)
-
-                    if usuario == False:
-                        listaUsuarios += f'*USUARIO NÃO ENCONTRADO*\n _para cadastrar digite */ADD*_'
-
-                    else:
-                        # numbersToSend = x.fetchall()
-                        # print(numbersToSend)
-                        for user in usuario:
-                            # telefone = numbersToSend[1]
-                            # print(telefone)
-                            listaUsuarios += f"""
-_______USUARIO__________
-NOME: {user[1]}
-EMAIL: {user[3]}
-TELEFONE: {user[9]}
-ENDEREÇO: {user[7]}
-______________________
-
-"""
-
-                    client.messages.create(
-                        from_='whatsapp:+14155238886',
-                        body=listaUsuarios,
-                        to=request.form.get('From')
-                    )
-                    return str('ok')
+        mega = request.form.get('Body')
+        message = mega.upper()
+        if message in comandos:
+            if message == '/ADD':
+                check_in = SelectSql('sms', 'whatsapp', request.form.get('From'))
+                if check_in == False:
+                    InsertSql({'whatsapp': request.form.get('From')}, 'sms')
+                    bg = '✅✅✅ *NUMERO ADICIONADO* ✅✅✅'
                 else:
-                    resp = MessagingResponse()
-                    resp.message(f"""
+                    bg = '⚠️⚠️⚠️* NUMERO JÁ CADASTRADO *⚠️⚠️⚠️'
+                client.messages.create(
+                    from_='whatsapp:+14155238886',
+                    body=bg,
+                    to=request.form.get('From')
+                )
+                return str('ok')
+            if message == '/REMOVE':
+                c.execute(f"""
+                       DELETE FROM sms WHERE whatsapp='{request.form.get('From')}';""")
+                client.messages.create(
+                    from_='whatsapp:+14155238886',
+                    body='🚨🚨🚨 *NUMERO REMOVIDO* 🚨🚨🚨',
+                    to=request.form.get('From')
+                )
+                conn.commit()
+                c.close()
+                return str('ok')
+
+                # InsertSql({'whatsapp': request.form.get('From')}, 'sms')
+            if message == '/TELEFONES':
+                listaTelefones = ''
+                phones = SelectAll('sms')
+                # print(phones)
+
+                if phones == False:
+                    listaTelefones += f'*NENHUM TELEFONE ESTÁ CADASTRADO*\n _para cadastrar digite */ADD*_'
+
+                else:
+
+                    # numbersToSend = x.fetchall()
+                    # print(numbersToSend)
+                    for numbersToSend in phones:
+                        telefone = numbersToSend[1]
+                        print(telefone)
+                        listaTelefones += f'*{telefone}*\n'
+
+                client.messages.create(
+                    from_='whatsapp:+14155238886',
+                    body=listaTelefones,
+                    to=request.form.get('From')
+                )
+                return str('ok')
+            if message == '/USUARIOS':
+                listaUsuarios = ''
+                usuarios = SelectAll('usuarios')
+                # print(phones)
+
+                if usuarios == False:
+                    listaUsuarios += f'*NENHUM CLIENTE ESTÁ CADASTRADO*\n _para cadastrar digite */ADD*_'
+
+                else:
+                    # numbersToSend = x.fetchall()
+                    # print(numbersToSend)
+                    for user in usuarios:
+                        # telefone = numbersToSend[1]
+                        # print(telefone)
+                        listaUsuarios += f'{user[0]} | {user[1]} \n'
+
+                client.messages.create(
+                    from_='whatsapp:+14155238886',
+                    body=listaUsuarios,
+                    to=request.form.get('From')
+                )
+                return str('ok')
+        if message not in comandos:
+            if '👁️‍🗨️' in message:
+                search = message.strip('👁️‍🗨️')
+                print(search)
+
+                listaUsuarios = ''
+                usuario = SelectSql('usuarios', 'id_usuarios', int(search))
+                # print(phones)
+
+                if usuario == False:
+                    listaUsuarios += f'*USUARIO NÃO ENCONTRADO*\n _para cadastrar digite */ADD*_'
+
+                else:
+                    # numbersToSend = x.fetchall()
+                    # print(numbersToSend)
+                    for user in usuario:
+                        # telefone = numbersToSend[1]
+                        # print(telefone)
+                        listaUsuarios += f"""
+____ 👁️‍🗨️ _*USUARIO ENCONTRADO*_ 👁️‍🗨️_________
+Nome: *{user[1]}*
+Email: *{user[3]}*
+Tel: *{user[9]}*
+End: *{user[7]}*
+______________________"""
+
+                    client.messages.create(
+                        from_='whatsapp:+14155238886',
+                        body=listaUsuarios,
+                        to=request.form.get('From')
+                    )
+                    return str('ok')
+            else:
+                resp = MessagingResponse()
+                resp.message(f"""
     _*🍔DOM HAMBURGUER BOT🍔*_:
-    Comandos para uso do Sistema:
-    _________________________________
-    📞```ADICIONAR SEU NUMERO``` --> */ADD*
-    📔```WHATSAPP`S CADASTRADOS``` --> */TELEFONES*
-    ⛔```REMOVER SEU NUMERO```- */REMOVER*
-    ________________________________
-                    """)
-                    return str(resp)
+Comandos para uso do Sistema:
+ _________________________________
+📞 */ADD*               | ```ADICIONAR SEU NUMERO```
+📔 */TELEFONES* | ```WHATSAPP`S CADASTRADOS```
+⛔ */REMOVER*   | ```REMOVER SEU NUMERO```
+__________________________________________
+👥 */USUARIOS*  | ```VER LISTA DE CLIENTES```
+👁️‍🗨️[*_nr do cliente_*]   | ```VER DADOS DO CLIENTE```
+________________________________""")
+                return str(resp)
 
     else:
         print('ENVIAR PARA OS NUMEROS CADASTRADOS')
@@ -498,10 +492,11 @@ ______________________
             print(nr)
             client.messages.create(
                 from_='whatsapp:+14155238886',
-                    body=msg,
-                    to=nr[1]
-                )
+                body=msg,
+                to=nr[1]
+            )
         c.close()
+
 @app.route('/transfer/<filename>', methods=['GET', 'POST'])
 def uploaded_file(filename):
     if filename == None:
