@@ -426,7 +426,6 @@ def sms_reply(msg=None):
                         listaUsuarios += f'*NENHUM CLIENTE ESTÁ CADASTRADO*\n _para cadastrar digite */ADD*_'
 
                     else:
-
                         # numbersToSend = x.fetchall()
                         # print(numbersToSend)
                         for user in usuarios:
