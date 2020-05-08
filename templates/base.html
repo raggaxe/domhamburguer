@@ -128,7 +128,7 @@ overflow:hidden;
 position:fixed;
 top:0;
 width:100%;
-z-index:10000000;
+z-index:10;
 
 
 }
@@ -314,9 +314,7 @@ display: flex;
 
 
 
-.title_log{
-width:100%;
-}
+
 
 .title_log h1{
 word-wrap: break-word;
@@ -764,9 +762,10 @@ color:#fff;
 margin-top:10px;
 display:flex;
 align-items: center; /* vertical */
-
     position: relative;
     text-align: center;
+    margin:0 auto;
+
 
  }
 
@@ -781,7 +780,10 @@ align-items: center; /* vertical */
 
 .show-cart td{
 padding:0;
+}
 
+.show-cart tr{
+padding:0;
 }
     .nome_cart{
     width:auto;
@@ -1529,7 +1531,41 @@ html {
 
 
 
+@media only screen and (max-width: 600px) {
+  .title_log{
+  transform:scale(0.7);}
 
+#pills-tab-menu{
+margin-top:20px;
+position:relative;
+background:#fff;}
+
+#pills-tab-menu .nav-link {
+font-size:9px;
+color:#000;}
+
+.navbar-brand{
+margin-left:-40px;
+transform:scale(0.8);}
+
+#pills-tab-menu .nav-link.active, .nav-pills .show>.nav-link {
+background:none;
+font-size:11px;
+padding:0px;}
+.clear-cart{
+position:absolute;
+
+}
+
+.item_pedido{
+transform:scale(0.7);
+margin-left:-75px;
+margin-bottom: 0rem;
+margin-top: 0rem;
+}
+.tr-group {
+margin-top:0;}
+}
 
 </style>
 <header>
@@ -1748,7 +1784,7 @@ html {
 </div>
 <div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+        <div id="modal-content_cart" class="modal-content">
             <form action="{{ url_for('checkout') }}" method="POST">
                 <div id="title_cart_inner" class=" fullbox text-center">
                     <button type="button" class="close_cart" data-dismiss="modal" aria-label="Close">
