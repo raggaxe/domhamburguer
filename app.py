@@ -417,6 +417,30 @@ def sms_reply(msg=None):
                                 to=request.form.get('From')
                             )
                     return str('ok')
+                if message == '/USUARIOS':
+                    listaUsuarios = ''
+                    usuarios = SelectAll('usuarios')
+                    # print(phones)
+
+                    if usuarios == False:
+                        listaUsuarios += f'*NENHUM CLIENTE ESTÁ CADASTRADO*\n _para cadastrar digite */ADD*_'
+
+                    else:
+
+                        # numbersToSend = x.fetchall()
+                        # print(numbersToSend)
+                        for user in usuarios:
+                            # telefone = numbersToSend[1]
+                            # print(telefone)
+                            listaUsuarios += f'*{user[0]}. - {user[1]}*\n'
+
+                    client.messages.create(
+                        from_='whatsapp:+14155238886',
+                        body=listaUsuarios,
+                        to=request.form.get('From')
+                    )
+                    return str('ok')
+
 
             if message not in comandos:
                 resp = MessagingResponse()
