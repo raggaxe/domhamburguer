@@ -360,7 +360,7 @@ def user_dash_type(id_data):
 
 @app.route('/sms', methods=['GET', 'POST'])
 def sms_reply(msg=None):
-    comandos = ('/ADD','/REMOVE','/TELEFONES')
+    comandos = ('/ADD','/REMOVE','/TELEFONES','/USUARIOS')
     c, conn = connection()
     if msg == None:
             mega = request.form.get('Body')
